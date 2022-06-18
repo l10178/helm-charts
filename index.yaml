@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  selfsigned-cert-manager:
+  - apiVersion: v2
+    appVersion: 0.9.0
+    created: "2023-02-17T01:55:17.157638093Z"
+    description: A quick cert-manager starter.
+    digest: 6922ac60c2b81b25c3c033e140b029c6c65d38de1432476ab6a2eed2d21812b2
+    name: selfsigned-cert-manager
+    type: application
+    urls:
+    - https://github.com/l10178/helm-charts/releases/download/selfsigned-cert-manager-0.1.0/selfsigned-cert-manager-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-02-17T01:55:17.157641693Z"
