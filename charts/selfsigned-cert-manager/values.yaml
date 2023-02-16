@@ -1,0 +1,5 @@
+# Default values for selfsigned-cert-manager.
+
+fullnameOverride: ""
+commonName: ""
+secretName: ""

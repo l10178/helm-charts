@@ -1,0 +1,26 @@
+# k8s base charts
+
+bases:
+  - repositories.yaml
+  - defaults.yaml
+
+releases:
+  - name: cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    chart: bitnami/cert-manager
+    version: 0.9.0
+    missingFileHandler: Warn
+    values:
+      # Value files passed via --values
+      - installCRDs: true
+        
+  - name: selfsigned-cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    chart: l10178/selfsigned-cert-manager
+    version: 0.1.0
+    missingFileHandler: Warn
+    values:
+      - installCRDs: true
+ 
