@@ -1,8 +1,9 @@
 # k8s base charts
 
+# include base configs
 bases:
   - repositories.yaml
-  - defaults.yaml
+  - helm-defaults.yaml
 
 releases:
   - name: cert-manager
@@ -12,13 +13,12 @@ releases:
     version: 0.9.0
     missingFileHandler: Warn
     values:
-      # Value files passed via --values
       - installCRDs: true
         
   - name: selfsigned-cert-manager
     namespace: cert-manager
     createNamespace: true
-    chart: l10178/selfsigned-cert-manager
+    chart: nxest/selfsigned-cert-manager
     version: 0.1.0
     missingFileHandler: Warn
     values:

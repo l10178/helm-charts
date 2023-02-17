@@ -3,8 +3,9 @@ name: github pages
 on:
   workflow_dispatch:
   push:
-    tags:
-      - '*'
+    branches:
+      - main
+    # change the version in Chart.yaml, will run release job
     paths:
     - charts/**/Chart.yaml
 
@@ -118,8 +119,8 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Configure Helm
-        run: helm repo add bitnami https://charts.bitnami.com/bitnami/
+      # - name: Configure Helm
+      #   run: helm repo add bitnami https://charts.bitnami.com/bitnami/
 
       - name: Get chart version
         id: chart_version
