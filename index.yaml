@@ -1,5 +1,24 @@
 apiVersion: v1
 entries:
+  openldap:
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2023-02-17T10:27:30.817692514Z"
+    description: Community developed LDAP software
+    digest: a67de78efffe5ca1343a39795afbf6f0f36917baa8bf2e90f7fa162bf3adbe21
+    home: https://github.com/osixia/docker-openldap
+    icon: http://www.openldap.org/images/headers/LDAPworm.gif
+    keywords:
+    - ldap
+    - openldap
+    maintainers:
+    - name: l10178
+    name: openldap
+    sources:
+    - https://github.com/l10178/helm-charts
+    urls:
+    - https://github.com/l10178/helm-charts/releases/download/openldap-0.1.0/openldap-0.1.0.tgz
+    version: 0.1.0
   selfsigned-cert-manager:
   - apiVersion: v2
     appVersion: 0.9.0
@@ -21,4 +40,4 @@ entries:
     urls:
     - https://github.com/l10178/helm-charts/releases/download/selfsigned-cert-manager-0.1.0/selfsigned-cert-manager-0.1.0.tgz
     version: 0.1.0
-generated: "2023-02-17T03:35:55.792536834Z"
+generated: "2023-02-17T10:27:30.817708414Z"
