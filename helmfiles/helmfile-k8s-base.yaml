@@ -19,7 +19,7 @@ releases:
     namespace: cert-manager
     createNamespace: true
     chart: nxest/selfsigned-cert-manager
-    version: 0.1.0
+    version: 0.1.1
     missingFileHandler: Warn
     values:
       - installCRDs: true
