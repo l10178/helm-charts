@@ -1,4 +1,4 @@
-# k8s base charts
+# core dependency, must be installed
 
 # include base configs
 bases:
@@ -21,6 +21,15 @@ releases:
     chart: nxest/selfsigned-cert-manager
     version: 0.1.1
     missingFileHandler: Warn
-    values:
-      - installCRDs: true
+    # values:
+      # - installCRDs: true
  
+  - name: openldap
+    namespace: openldap
+    createNamespace: true
+    chart: nxest/openldap
+    version: 1.0.0
+    missingFileHandler: Warn
+    values:
+      - adminPassword: "admin2023"
+      - configPassword: "admin2023"
