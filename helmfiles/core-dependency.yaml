@@ -5,6 +5,10 @@ bases:
   - repositories.yaml
   - helm-defaults.yaml
 
+repositories:
+  - name: dex
+    url: https://charts.dexidp.io
+
 releases:
   - name: cert-manager
     namespace: cert-manager
@@ -21,15 +25,20 @@ releases:
     chart: nxest/selfsigned-cert-manager
     version: 0.1.1
     missingFileHandler: Warn
-    # values:
-      # - installCRDs: true
  
-  - name: openldap
-    namespace: openldap
+  # - name: openldap
+  #   namespace: openldap
+  #   createNamespace: true
+  #   chart: truecharts/openldap
+  #   version: 9.0.9
+  #   missingFileHandler: Warn
+
+  - name: dex
+    namespace: dex
     createNamespace: true
-    chart: nxest/openldap
-    version: 1.0.0
+    chart: dex/dex
+    version: 0.13.0
     missingFileHandler: Warn
     values:
-      - adminPassword: "admin2023"
-      - configPassword: "admin2023"
+    - config/dex-values.yaml
+ 
