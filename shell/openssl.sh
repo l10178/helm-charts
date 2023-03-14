@@ -16,7 +16,7 @@ openssl req -x509 \
     -nodes \
     -newkey rsa:2048 \
     -subj "/CN=${DOMAIN}/C=US/L=San Fransisco" \
-    -keyout rootCA.key -out rootCA.crt
+    -keyout ca.key -out ca.crt
 
 # Generate Private key
 
