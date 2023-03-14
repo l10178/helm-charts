@@ -1,0 +1,21 @@
+# developing tools
+
+# include base configs
+bases:
+  - repositories.yaml
+  - helm-defaults.yaml
+
+repositories:
+  - name: stevehipwell
+    url: https://stevehipwell.github.io/helm-charts/
+
+releases:
+  - name: plantuml
+    namespace: plantuml
+    createNamespace: true
+    chart: stevehipwell/plantuml
+    version: 3.20.0
+    missingFileHandler: Warn
+    values:
+      - ./config/plantuml/values.yaml
+        

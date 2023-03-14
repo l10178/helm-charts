@@ -2,7 +2,9 @@
 # In other words, unset values results in no flags passed to helm.
 # See the helm usage (helm SUBCOMMAND -h) for more info on default values when those flags aren't provided.
 helmDefaults:
-  kubeContext: cool #dedicated default key for kube-context (--kube-context)
+  # tillerNamespace: tiller-namespace  #dedicated default key for tiller-namespace
+  # tillerless: false                  #dedicated default key for tillerless
+  kubeContext: k3s #dedicated default key for kube-context (--kube-context)
   cleanupOnFail: true #dedicated default key for helm flag --cleanup-on-fail
   # additional and global args passed to helm (default "")
   args:

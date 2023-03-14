@@ -1,0 +1,62 @@
+# devops
+
+# include base configs
+bases:
+  - repositories.yaml
+  - helm-defaults.yaml
+
+releases:
+  - name: argo-workflows
+    namespace: argo-workflows
+    createNamespace: true
+    chart: bitnami/argo-workflows
+    version: 5.1.11
+    missingFileHandler: Warn
+    values:
+    - ./config/argo-workflows/values.yaml
+      
+
+  - name: argo-cd
+    namespace: argo-cd
+    createNamespace: true
+    chart: bitnami/argo-cd
+    version: 4.4.12
+    missingFileHandler: Warn
+    values:
+
+      - config:
+          secret:
+            argocdServerAdminPassword: admin2023
+      - server:
+          url: argo-cd.nxest.local
+          insecure: true
+          ingress:
+            enabled: true
+            hostname: argo-cd.nxest.local
+          # oidc.config:
+          #   name: keycloak
+          #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
+          #   clientID: CLIENT_ID
+          #   clientSecret: $oidc.azuread.clientSecret
+          #   requestedIDTokenClaims:
+          #     groups:
+          #       essential: true
+          #   requestedScopes:
+          #     - openid
+          #     - profile
+          #     - email
+          # auth:
+          #   mode: sso
+          #   sso:
+          #     enabled: true
+          #     insecureSkipVerify: true
+          #     config:
+          #       issuer: http://keycloak.nxest.local/realms/master
+          #       # kubectl -n argo-workflows create secret generic argo-workflows-sso --from-literal=clientId=xxxx --from-literal=clientSecret=xxx
+          #       clientId:
+          #         name: "argo-workflows-sso"
+          #         key: "clientId"
+          #       clientSecret:
+          #         name: "argo-workflows-sso"
+          #         key: "clientSecret"
+          #       redirectUrl: "http://argo-workflows.nxest.local/oauth2/callback"

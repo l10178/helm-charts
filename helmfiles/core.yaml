@@ -5,10 +5,6 @@ bases:
   - repositories.yaml
   - helm-defaults.yaml
 
-repositories:
-  - name: dex
-    url: https://charts.dexidp.io
-
 releases:
   - name: cert-manager
     namespace: cert-manager
@@ -19,6 +15,7 @@ releases:
     values:
       - installCRDs: true
         
+        # TODO: https://github.com/roboll/helmfile/issues/538
   - name: selfsigned-cert-manager
     namespace: cert-manager
     createNamespace: true
@@ -26,19 +23,21 @@ releases:
     version: 0.1.1
     missingFileHandler: Warn
  
-  # - name: openldap
-  #   namespace: openldap
-  #   createNamespace: true
-  #   chart: truecharts/openldap
-  #   version: 9.0.9
-  #   missingFileHandler: Warn
-
-  - name: dex
-    namespace: dex
+  - name: postgresql
+    namespace: postgresql
     createNamespace: true
-    chart: dex/dex
-    version: 0.13.0
+    chart: bitnami/postgresql
+    version: 12.2.2
+    missingFileHandler: Warn 
+    values:
+    - ./config/postgresql/values.yaml
+
+  - name: keycloak
+    namespace: keycloak
+    createNamespace: true
+    chart: bitnami/keycloak
+    version: 13.2.0
     missingFileHandler: Warn
     values:
-    - config/dex-values.yaml
- 
+    - ./config/keycloak/values.yaml
+      

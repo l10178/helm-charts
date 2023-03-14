@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  hosts:
+    - plantuml.nxest.local
+  tls:
+  - hosts:
+    - plantuml.nxest.local
+    secretName: plantuml.nxest.local-tls

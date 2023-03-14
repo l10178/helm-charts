@@ -1,0 +1,21 @@
+auth:
+  adminUser: admin
+  adminPassword: "admin"
+service:
+  type: ClusterIP
+ingress:
+  enabled: true
+  hostname: keycloak.nxest.local
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  tls: true
+  # secrets:
+  # - ingress-keycloak-secret
+postgresql:
+  enabled: false
+externalDatabase:
+  host: postgresql.postgresql.svc
+  port: 5432
+  user: postgres
+  password: "postgresql2023"
+  database: keycloak

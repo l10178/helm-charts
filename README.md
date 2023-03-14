@@ -16,6 +16,23 @@ The helm charts for nxest.com.
 
 不管你平时开发是使用 Windows、MacOS 或 Linux，都建议比先虚拟出一个虚拟机，在虚拟上执行操作。
 
+### 安装k8s
+
+使用multipass启动一个ubuntu虚拟机，然后安装k3s，安装完成后把k3s的 kube config文件拷贝到本机，以便能执行helm和kubectl命令。
+
+```bash
+# launch ubuntu 22.04
+multipass launch --name k3s --cpus 4 --memory 16G --disk 128G 22.04
+
+# Install or upgrade k3s
+curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=644 INSTALL_K3S_CHANNEL=latest sh -
+
+# copy /etc/rancher/k3s/k3s.yaml as your kube config file
+
+```
+
+注意：修改kube config中context name，与helmfile中的使用的 `kubeContext` 保持一致。我这里都改为了`k3s`。
+
 ## helmfile
 
 使用 [helmfile](https://helmfile.readthedocs.io) 管理 Helm releases。

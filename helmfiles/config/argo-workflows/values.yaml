@@ -1,0 +1,29 @@
+postgresql:
+  enabled: false
+externalDatabase:
+  enabled: true
+  type: postgresql
+  host: postgresql.postgresql.svc
+  port: 5432
+  username: postgres
+  password: "postgresql2023"
+  database: argo-workflows
+server:
+  auth:
+    mode: sso
+    sso:
+      enabled: true
+      insecureSkipVerify: true
+      config:
+        issuer: http://keycloak.nxest.local/realms/master
+        # kubectl -n argo-workflows create secret generic argo-workflows-sso --from-literal=clientId=xxxx --from-literal=clientSecret=xxx
+        clientId:
+          name: "argo-workflows-sso"
+          key: "clientId"
+        clientSecret:
+          name: "argo-workflows-sso"
+          key: "clientSecret"
+        redirectUrl: "http://argo-workflows.nxest.local/oauth2/callback"
+ingress:
+  enabled: true
+  hostname: argo-workflows.nxest.local
