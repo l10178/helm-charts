@@ -19,7 +19,7 @@ releases:
   - name: selfsigned-cert-manager
     namespace: cert-manager
     createNamespace: true
-    chart: nxest/selfsigned-cert-manager
+    chart: ../charts/selfsigned-cert-manager
     version: 0.1.1
     missingFileHandler: Warn
  

@@ -50,4 +50,12 @@ helmfile apply --file helmfiles/xxx.yaml
 
 ## GitHub Actions
 
+
+https://www.cnblogs.com/dandelion/p/14083023.html
+
+
+
+
 [multipass]: https://multipass.run/
+
+
