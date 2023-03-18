@@ -6,6 +6,10 @@ bases:
   - repositories.yaml
   - helm-defaults.yaml
 
+repositories:
+  - name: cert-manager
+    url: https://charts.jetstack.io
+
 releases:
   - name: cert-manager
     namespace: cert-manager
@@ -47,3 +51,4 @@ releases:
     missingFileHandler: Warn
     values:
       - ./config/keycloak/values.yaml.gotmpl
+

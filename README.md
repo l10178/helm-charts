@@ -65,8 +65,8 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=644 INS
 # install helm-diff plugin
 helm plugin install https://github.com/databus23/helm-diff
 
-#  run helmfile
-helmfile --environment cool apply --file helmfiles/xxx.yaml
+#  run helmfile, set `--concurrency 1` for github always EOF
+helmfile --environment cool apply --file helmfiles/xxx.yaml --concurrency 1
 
 ```
 

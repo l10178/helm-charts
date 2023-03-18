@@ -2,11 +2,14 @@ config:
   secret:
     argocdServerAdminPassword: admin2023
 server:
-  url: argo-cd.nxest.local
+  url: argo-cd.{{ .Values.hostnameSuffix }}
   insecure: true
   ingress:
     enabled: true
-    hostname: argo-cd.nxest.local
+    hostname: argo-cd.{{ .Values.hostnameSuffix }}
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cert-manager
+
   # oidc.config:
   #   name: keycloak
   #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
