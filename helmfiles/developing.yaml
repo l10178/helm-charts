@@ -2,7 +2,8 @@
 
 # include base configs
 bases:
-  - repositories.yaml
+  - environments.yaml
+  # - repositories.yaml
   - helm-defaults.yaml
 
 repositories:
@@ -17,5 +18,5 @@ releases:
     version: 3.20.0
     missingFileHandler: Warn
     values:
-      - ./config/plantuml/values.yaml
+      - ./config/plantuml/values.yaml.gotmpl
         

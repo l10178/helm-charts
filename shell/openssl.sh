@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# bash openssl.sh cool.nxest.local 192.168.1.238
+
 if [ "$#" -ne 2 ]; then
     echo "Error: No domain name and master ip argument provided"
     echo "Usage: Provide domain name and master ip as arguments"
@@ -11,11 +13,18 @@ MASTER_IP=$2
 
 # Create root CA & Private key
 
+# add the blew v3_ca to /etc/ssl/openssl.cnf for MacOS
+# [ v3_ca ]
+# basicConstraints = critical,CA:TRUE
+# subjectKeyIdentifier = hash
+# authorityKeyIdentifier = keyid:always,issuer:always
+
 openssl req -x509 \
     -sha256 -days 3650 \
     -nodes \
     -newkey rsa:2048 \
     -subj "/CN=${DOMAIN}/C=US/L=San Fransisco" \
+    # -extensions v3_ca \
     -keyout ca.key -out ca.crt
 
 # Generate Private key
@@ -74,7 +83,7 @@ EOF
 
 openssl x509 -req \
     -in ${DOMAIN}.csr \
-    -CA rootCA.crt -CAkey rootCA.key \
+    -CA ca.crt -CAkey ca.key \
     -CAcreateserial -out ${DOMAIN}.crt \
-    -days 365 \
+    -days 3650 \
     -sha256 -extfile cert.conf

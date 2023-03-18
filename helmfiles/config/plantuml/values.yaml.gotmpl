@@ -3,8 +3,8 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-cert-manager
   hosts:
-    - plantuml.nxest.local
+    - plantuml.{{ .Values.hostnameSuffix }}
   tls:
   - hosts:
-    - plantuml.nxest.local
-    secretName: plantuml.nxest.local-tls
+    - plantuml.{{ .Values.hostnameSuffix }}
+    secretName: plantuml.local-tls

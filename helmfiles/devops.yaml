@@ -2,6 +2,7 @@
 
 # include base configs
 bases:
+  - environments.yaml
   - repositories.yaml
   - helm-defaults.yaml
 
@@ -13,8 +14,7 @@ releases:
     version: 5.1.11
     missingFileHandler: Warn
     values:
-    - ./config/argo-workflows/values.yaml
-      
+      - ./config/argo-workflows/values.yaml
 
   - name: argo-cd
     namespace: argo-cd
@@ -23,7 +23,6 @@ releases:
     version: 4.4.12
     missingFileHandler: Warn
     values:
-
       - config:
           secret:
             argocdServerAdminPassword: admin2023

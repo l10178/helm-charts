@@ -5,12 +5,10 @@ service:
   type: ClusterIP
 ingress:
   enabled: true
-  hostname: keycloak.nxest.local
+  hostname: keycloak.{{ .Values.hostnameSuffix }}
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-cert-manager
   tls: true
-  # secrets:
-  # - ingress-keycloak-secret
 postgresql:
   enabled: false
 externalDatabase:
