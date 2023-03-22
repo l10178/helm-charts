@@ -1,8 +1,8 @@
 repositories:
   - name: bitnami
     url: https://charts.bitnami.com/bitnami
-  - name: bedag
-    url: https://bedag.github.io/helm-charts
+  - name: incubator
+    url: https://charts.helm.sh/incubator
 
 
    

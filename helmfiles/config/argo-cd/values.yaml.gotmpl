@@ -2,10 +2,11 @@ config:
   secret:
     argocdServerAdminPassword: admin2023
 server:
-  url: argo-cd.{{ .Values.hostnameSuffix }}
+  url: https://argo-cd.{{ .Values.hostnameSuffix }}
   insecure: true
   ingress:
     enabled: true
+    tls: false
     hostname: argo-cd.{{ .Values.hostnameSuffix }}
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cert-manager

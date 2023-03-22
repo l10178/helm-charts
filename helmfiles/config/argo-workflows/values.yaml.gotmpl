@@ -1,29 +1,20 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: "postgresql2023"
 postgresql:
-  enabled: false
-externalDatabase:
   enabled: true
-  type: postgresql
-  host: postgresql.postgresql.svc
-  port: 5432
-  username: postgres
-  password: "postgresql2023"
-  database: argo-workflows
-# kubectl -n argo-workflows create secret generic argo-workflows-sso --from-literal=clientId=xxxx --from-literal=clientSecret=xxx
-# - resources:
-#   - apiVersion: v1
-#     kind: Secret
-#     metadata:
-#       name: argo-workflows-sso
-#     data:
-#       clientId: YXJnby13b3JrZmxvd3M=
-#       clientSecret: UmtKalNIUjBhdzBRSlg4U2dMMHdlckc3MmwyM21pYTU=
+  auth:
+    username: postgres
+    password: "postgresql2023"
+    database: workflows
 server:
   auth:
     mode: sso
     sso:
       enabled: true
-      insecureSkipVerify: true
       config:
+        insecureSkipVerify: true
         issuer: https://keycloak.{{ .Values.hostnameSuffix }}/realms/master
         clientId:
           name: "argo-workflows-sso"
@@ -35,5 +26,6 @@ server:
 ingress:
   enabled: true
   hostname: argo-workflows.{{ .Values.hostnameSuffix }}
+  tls: true
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-cert-manager

@@ -7,27 +7,11 @@ bases:
   - helm-defaults.yaml
 
 releases:
-  - name: coredns-custom
-    chart: bedag/raw
-    version: 2.0.0
-    values:
-      - resources:
-          - apiVersion: v1
-            kind: ConfigMap
-            metadata:
-              name: coredns-custom
-              namespace: kube-system
-            data:
-              nxest.server: |
-                nxest.local:53 {
-                    errors
-                    cache 30
-                    forward . 10.43.0.10
-                }
-
   - name: argo-workflows-secret
-    chart: bedag/raw
-    version: 2.0.0
+    chart: incubator/raw
+    namespace: argo-workflows
+    createNamespace: true
+    version: 0.2.5
     values:
       - resources:
           - apiVersion: v1
