@@ -1,5 +1,4 @@
 # Default values for selfsigned-cert-manager.
 
 fullnameOverride: ""
-commonName: ""
-secretName: ""
+commonName: "nxest.local"

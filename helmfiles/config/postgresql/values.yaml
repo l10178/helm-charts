@@ -1,0 +1,10 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: postgresql2023
+primary:
+  initdb:
+    scripts:
+      init.sql: |
+        CREATE DATABASE keycloak;
+        CREATE DATABASE argo-workflows;

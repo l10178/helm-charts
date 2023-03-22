@@ -2,27 +2,6 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: {{ include "selfsigned-cert-manager.fullname" . }}
-  namespace: default
-spec:
-  selfSigned: {}
----
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: {{ include "selfsigned-cert-manager.fullname" . }}-ca
 spec:
   ca:
     secretName: {{ include "selfsigned-cert-manager.secretName" . }}
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: {{ include "selfsigned-cert-manager.fullname" . }}-certificate
-spec:
-  isCA: true
-  commonName: {{ include "selfsigned-cert-manager.commonName" . }}
-  secretName: {{ include "selfsigned-cert-manager.secretName" . }}
-  issuerRef:
-    name: {{ include "selfsigned-cert-manager.fullname" . }}
-    kind: ClusterIssuer
-    group: cert-manager.io

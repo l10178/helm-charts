@@ -1,0 +1,42 @@
+# devops
+
+# include base configs
+bases:
+  - environments.yaml
+  - repositories.yaml
+  - helm-defaults.yaml
+
+releases:
+  - name: argo-workflows-secret
+    chart: incubator/raw
+    namespace: argo-workflows
+    createNamespace: true
+    version: 0.2.5
+    values:
+      - resources:
+          - apiVersion: v1
+            kind: Secret
+            metadata:
+              name: argo-workflows-sso
+              namespace: argo-workflows
+            data:
+              clientId: YXJnby13b3JrZmxvd3M=
+              clientSecret: UmtKalNIUjBhdzBRSlg4U2dMMHdlckc3MmwyM21pYTU=
+
+  - name: argo-workflows
+    namespace: argo-workflows
+    createNamespace: true
+    chart: bitnami/argo-workflows
+    version: 5.1.12
+    missingFileHandler: Warn
+    values:
+      - ./config/argo-workflows/values.yaml.gotmpl
+
+  - name: argo-cd
+    namespace: argo-cd
+    createNamespace: true
+    chart: bitnami/argo-cd
+    version: 4.5.0
+    missingFileHandler: Warn
+    values:
+      - ./config/argo-cd/values.yaml.gotmpl

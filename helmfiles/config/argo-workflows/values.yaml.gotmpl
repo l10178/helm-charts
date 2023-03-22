@@ -1,0 +1,31 @@
+global:
+  postgresql:
+    auth:
+      postgresPassword: "postgresql2023"
+postgresql:
+  enabled: true
+  auth:
+    username: postgres
+    password: "postgresql2023"
+    database: workflows
+server:
+  auth:
+    mode: sso
+    sso:
+      enabled: true
+      config:
+        insecureSkipVerify: true
+        issuer: https://keycloak.{{ .Values.hostnameSuffix }}/realms/master
+        clientId:
+          name: "argo-workflows-sso"
+          key: "clientId"
+        clientSecret:
+          name: "argo-workflows-sso"
+          key: "clientSecret"
+        redirectUrl: "https://argo-workflows.{{ .Values.hostnameSuffix }}/oauth2/callback"
+ingress:
+  enabled: true
+  hostname: argo-workflows.{{ .Values.hostnameSuffix }}
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager

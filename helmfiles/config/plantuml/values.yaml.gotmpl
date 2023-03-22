@@ -1,0 +1,10 @@
+ingress:
+  enabled: true
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  hosts:
+    - plantuml.{{ .Values.hostnameSuffix }}
+  tls:
+  - hosts:
+    - plantuml.{{ .Values.hostnameSuffix }}
+    secretName: plantuml.local-tls
