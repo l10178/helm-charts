@@ -27,7 +27,7 @@ releases:
     namespace: argo-workflows
     createNamespace: true
     chart: bitnami/argo-workflows
-    version: 5.1.11
+    version: 5.1.12
     missingFileHandler: Warn
     values:
       - ./config/argo-workflows/values.yaml.gotmpl
@@ -36,7 +36,7 @@ releases:
     namespace: argo-cd
     createNamespace: true
     chart: bitnami/argo-cd
-    version: 4.4.15
+    version: 4.5.0
     missingFileHandler: Warn
     values:
       - ./config/argo-cd/values.yaml.gotmpl
