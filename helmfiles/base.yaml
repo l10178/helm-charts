@@ -47,7 +47,7 @@ releases:
     namespace: keycloak
     createNamespace: true
     chart: bitnami/keycloak
-    version: 13.3.0
+    version: 14.0.0
     missingFileHandler: Warn
     values:
       - ./config/keycloak/values.yaml.gotmpl

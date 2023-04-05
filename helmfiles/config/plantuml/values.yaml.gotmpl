@@ -8,3 +8,10 @@ ingress:
   - hosts:
     - plantuml.{{ .Values.hostnameSuffix }}
     secretName: plantuml.local-tls
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
