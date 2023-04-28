@@ -6,8 +6,8 @@ server:
   insecure: true
   ingress:
     enabled: true
-    tls: false
     hostname: argo-cd.{{ .Values.hostnameSuffix }}
+    tls: true
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cert-manager
 

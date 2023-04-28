@@ -1,0 +1,146 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: ci-java
+  annotations:
+    workflows.argoproj.io/description: |
+      Java ci workflows.
+spec:
+  # securityContext:
+  #   runAsUser: 1000
+  #   runAsNonRoot: true
+  #   fsGroup: 1000
+
+  arguments:
+    parameters:
+      - name: repo
+        value: https://git.firstshare.cn/springboot/fs-spring-cloud-scaffold.git
+      - name: branch
+        value: master
+
+  entrypoint: main
+  # onExit: cache-store
+
+  volumeClaimTemplates:
+    - metadata:
+        name: workspace
+      spec:
+        accessModes: [ReadWriteOnce]
+        resources:
+          requests:
+            storage: 1Gi
+
+  templates:
+    - name: main
+      dag:
+        tasks:
+          # - name: cache-restore
+          # template: cache-restore
+          - name: clone
+            template: clone
+          - name: deps
+            template: deps
+            dependencies:
+              - clone
+              # - cache-restore
+          - name: build
+            template: build
+            dependencies:
+              - deps
+          - name: test
+            template: test
+            dependencies:
+              - build
+
+    - name: clone
+      container:
+        image: bitnami/git:2-debian-11
+        volumeMounts:
+          - mountPath: /workspace
+            name: workspace
+            # subPath: src
+        workingDir: /workspace/src
+        command: [sh, -euxc]
+        args:
+          - |
+            git clone -v -b "{{workflow.parameters.branch}}" --single-branch --depth 1 "{{workflow.parameters.repo}}" .
+
+    - name: deps
+      container:
+        image: busybox:1.36.0
+        volumeMounts:
+          - mountPath: /workspace
+            name: workspace
+        workingDir: /workspace
+        command: [sh, -xuce]
+        args:
+          - |
+            ls -al
+
+    - name: build
+      container:
+        image: reg.firstshare.cn/base/fs-maven3.9:openjdk17
+        volumeMounts:
+          - mountPath: /workspace
+            name: workspace
+        workingDir: /workspace
+        command: [sh, -xuce]
+        args:
+          - |
+            mvn -B clean package -Dmaven.test.skip=true -Dautoconfig.skip \
+            -s /usr/share/maven/ref/settings.xml
+
+    - name: push
+      container:
+        name: kaniko-executor
+        image: reg.firstshare.cn/gcr.io/kaniko-project/executor:v1.9.2
+        args:
+          - '--context=.'
+          - '--dockerfile=Dockerfile'
+          - '--destination={{workflow.parameters.image}}'
+          - '--skip-tls-verify'
+          - '--reproducible'
+          - '--cache=true'
+        workingDir: /work
+        resources: {}
+        volumeMounts:
+          - name: work
+            mountPath: /work
+          - name: docker-config
+            mountPath: /kaniko/.docker/
+      volumes:
+        - name: docker-config
+          secret:
+            secretName: docker-config 
+
+    - name: test
+      container:
+        image: golang:1.18
+        volumeMounts:
+          - mountPath: /go/src/github.com/golang/example
+            name: work
+            subPath: src
+          - mountPath: /go/pkg/mod
+            name: work
+            subPath: GOMODCACHE
+          - mountPath: /root/.cache/go-build
+            name: work
+            subPath: GOCACHE
+        workingDir: /go/src/github.com/golang/example
+        command: [sh, -euxc]
+        args:
+          - |
+            go install github.com/jstemmer/go-junit-report@latest
+            go install github.com/alexec/junit2html@v0.0.2
+
+            trap 'cat test.out | go-junit-report | junit2html > test-report.html' EXIT
+
+            go test -v ./... 2>&1 > test.out
+      outputs:
+        artifacts:
+          - name: test-report
+            path: /go/src/github.com/golang/example/test-report.html
+            archive:
+              none: {}
+            s3:
+              key: '{{workflow.parameters.branch}}/test-report.html'
