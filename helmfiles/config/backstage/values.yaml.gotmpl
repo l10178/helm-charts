@@ -1,0 +1,8 @@
+ingress:
+  enabled: true
+  host: backstage.{{ .Values.hostnameSuffix }}
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  tls:
+    enabled: true
+    secretName: backstage.local-tls

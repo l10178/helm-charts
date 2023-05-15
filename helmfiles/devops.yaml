@@ -6,6 +6,10 @@ bases:
   - repositories.yaml
   - helm-defaults.yaml
 
+repositories:
+  - name: backstage
+    url: https://backstage.github.io/charts
+
 # helm repo add bitnami https://charts.bitnami.com/bitnami
 # helm repo add backstage https://backstage.github.io/charts
 
@@ -30,7 +34,7 @@ releases:
     namespace: argo-workflows
     createNamespace: true
     chart: bitnami/argo-workflows
-    version: 5.1.14
+    version: 5.2.1
     missingFileHandler: Warn
     values:
       - ./config/argo-workflows/values.yaml.gotmpl
@@ -39,7 +43,16 @@ releases:
     namespace: argo-cd
     createNamespace: true
     chart: bitnami/argo-cd
-    version: 4.6.1
+    version: 4.7.2
     missingFileHandler: Warn
     values:
       - ./config/argo-cd/values.yaml.gotmpl
+
+  - name: backstage
+    namespace: backstage
+    createNamespace: true
+    chart: backstage/backstage
+    version: 0.22.3
+    missingFileHandler: Warn
+    values:
+      - ./config/backstage/values.yaml.gotmpl
