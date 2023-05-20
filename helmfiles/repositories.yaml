@@ -1,6 +1,8 @@
 repositories:
   - name: bitnami
-    url: https://charts.bitnami.com/bitnami
+    # url: https://charts.bitnami.com/bitnami
+    url: registry-1.docker.io/bitnamicharts
+    oci: true
   - name: incubator
     url: https://charts.helm.sh/incubator
 
