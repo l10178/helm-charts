@@ -8,7 +8,9 @@ bases:
 
 repositories:
   - name: backstage
-    url: https://backstage.github.io/charts
+    # url: https://backstage.github.io/charts
+    url: ghcr.io/backstage/charts
+    oci: true
 
 # helm repo add bitnami https://charts.bitnami.com/bitnami
 # helm repo add backstage https://backstage.github.io/charts
@@ -52,7 +54,6 @@ releases:
     namespace: backstage
     createNamespace: true
     chart: backstage/backstage
-    version: 0.22.3
-    missingFileHandler: Warn
+    version: 1.0.0
     values:
-      - ./config/backstage/values.yaml.gotmpl
+      - ./apps/values-backstage.yaml.gotmpl

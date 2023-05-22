@@ -1,0 +1,13 @@
+auth:
+  rootUser: admin
+  rootPassword: "admin2023"
+
+ingress:
+  enabled: true
+  hostname: minio.{{ .Values.hostnameSuffix }}
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  tls: true
+
+persistence:
+  size: 32Gi

@@ -15,24 +15,22 @@ releases:
     namespace: cert-manager
     createNamespace: true
     chart: cert-manager/cert-manager
-    version: 1.11.0
+    version: 1.12.0
     missingFileHandler: Warn
     values:
       - installCRDs: true
 
-  # TODO: https://github.com/roboll/helmfile/issues/538
   - name: selfsigned-cert-manager
     namespace: cert-manager
     createNamespace: true
-    chart: ../charts/selfsigned-cert-manager
+    chart: ../../charts/selfsigned-cert-manager
     version: 0.1.1
     missingFileHandler: Warn
     set:
-      # single value loaded from a local file, translates to --set-file foo.config=path/to/file
       - name: secret.crt
-        file: ./config/cert-manager/ca.crt
+        file: ./apps/cert-manager/ca.crt
       - name: secret.key
-        file: ./config/cert-manager/ca.key
+        file: ./apps/cert-manager/ca.key
 
   - name: postgresql
     namespace: postgresql
@@ -41,14 +39,20 @@ releases:
     version: 12.2.2
     missingFileHandler: Warn
     values:
-      - ./config/postgresql/values.yaml
-
+      - ./apps/postgresql/values.yaml
   - name: keycloak
     namespace: keycloak
     createNamespace: true
     chart: bitnami/keycloak
-    version: 14.0.0
+    version: 15.1.2
     missingFileHandler: Warn
     values:
-      - ./config/keycloak/values.yaml.gotmpl
+      - ./apps/values-keycloak.yaml.gotmpl
+  - name: minio
+    namespace: minio
+    createNamespace: true
+    chart: bitnami/minio
+    version: 12.6.0
+    values:
+      - ./apps/values-minio.yaml.gotmpl
 
