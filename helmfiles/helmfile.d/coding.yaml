@@ -14,9 +14,10 @@ releases:
   - name: plantuml
     namespace: plantuml
     createNamespace: true
+    # default disabled
+    condition: plantuml.enabled
     chart: stevehipwell/plantuml
     version: 3.20.0
-    missingFileHandler: Warn
     values:
-      - ./config/plantuml/values.yaml.gotmpl
+      - ./apps/values-plantuml.yaml.gotmpl
         
