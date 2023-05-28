@@ -1,3 +1,8 @@
+backstage:
+  appConfig:
+    app:
+      baseUrl: https://backstage.{{ .Values.hostnameSuffix }}
+
 ingress:
   enabled: true
   host: backstage.{{ .Values.hostnameSuffix }}

@@ -1,5 +1,5 @@
 environments:
-  default:
+  k3s:
     kubeContext: k3s
     values:
       - ./environments/k3s/values.yaml

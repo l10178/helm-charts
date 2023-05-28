@@ -13,21 +13,21 @@ repositories:
 
 releases:
   
-  - name: argo-workflows-secret
-    chart: incubator/raw
-    namespace: argo-workflows
-    createNamespace: true
-    version: 0.2.5
-    values:
-      - resources:
-          - apiVersion: v1
-            kind: Secret
-            metadata:
-              name: argo-workflows-sso
-              namespace: argo-workflows
-            data:
-              clientId: YXJnby13b3JrZmxvd3M=
-              clientSecret: UmtKalNIUjBhdzBRSlg4U2dMMHdlckc3MmwyM21pYTU=
+  # - name: argo-workflows-secret
+  #   chart: incubator/raw
+  #   namespace: argo-workflows
+  #   createNamespace: true
+  #   version: 0.2.5
+  #   values:
+  #     - resources:
+  #         - apiVersion: v1
+  #           kind: Secret
+  #           metadata:
+  #             name: argo-workflows-sso
+  #             namespace: argo-workflows
+  #           data:
+  #             clientId: YXJnby13b3JrZmxvd3M=
+  #             clientSecret: UmtKalNIUjBhdzBRSlg4U2dMMHdlckc3MmwyM21pYTU=
 
   - name: argo-workflows
     namespace: argo-workflows
