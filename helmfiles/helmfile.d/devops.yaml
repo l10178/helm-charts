@@ -10,14 +10,16 @@ repositories:
   - name: backstage
     url: ghcr.io/backstage/charts
     oci: true
+  - name: bedag
+    url: https://bedag.github.io/helm-charts
 
 releases:
   
   # - name: argo-workflows-secret
-  #   chart: incubator/raw
+  #   chart: bedag/raw
   #   namespace: argo-workflows
   #   createNamespace: true
-  #   version: 0.2.5
+  #   version: 2.0.1
   #   values:
   #     - resources:
   #         - apiVersion: v1
