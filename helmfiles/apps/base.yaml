@@ -15,7 +15,7 @@ releases:
     namespace: cert-manager
     createNamespace: true
     chart: cert-manager/cert-manager
-    version: 1.12.0
+    version: 1.12.1
     values:
       - installCRDs: true
 

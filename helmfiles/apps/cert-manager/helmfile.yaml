@@ -1,0 +1,21 @@
+# include base configs
+bases:
+  - ../environments.yaml
+  - ../helm-defaults.yaml
+  - ../repositories.yaml
+
+repositories:
+  - name: jetstack
+    url: https://charts.jetstack.io
+
+# add `---` to render environments values before releases
+---
+
+releases:
+  - name: cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    chart: jetstack/cert-manager
+    version: 1.12.1
+    values:
+      - installCRDs: true
