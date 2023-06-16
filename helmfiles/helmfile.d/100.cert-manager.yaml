@@ -22,7 +22,8 @@ releases:
     values:
       - installCRDs: true
 
-  - name: cert-manager-issuer
+  # create a cert-manager ClusterIssuer
+  - name: selfsigned-cert-manager
     namespace: cert-manager
     createNamespace: true
     chart: bedag/raw
@@ -30,20 +31,5 @@ releases:
     needs:
     - cert-manager
     values:
-      - installCRDs: true
-    values:
-    - templates:
-      - apiVersion: v1
-        kind: Secret
-        metadata:
-          name: selfsigned-cert-manager-ca
-        data:
-          tls.crt: {{ .Values.secret.crt | b64enc }}
-          tls.key: {{ .Values.secret.key | b64enc }}
-      - apiVersion: cert-manager.io/v1
-        kind: ClusterIssuer
-        metadata:
-          name: selfsigned-cert-manager
-        spec:
-          ca:
-            secretName: selfsigned-cert-manager-ca
+    - 100.cert-manager-values.yaml
+  
