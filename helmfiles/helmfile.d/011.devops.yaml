@@ -1,0 +1,41 @@
+# include base configs
+bases:
+  - 001.environments.yaml
+  - 002.repositories.yaml
+  - 003.helm-defaults.yaml
+repositories:
+  - name: backstage
+    url: ghcr.io/backstage/charts
+    oci: true
+
+---
+releases:
+  # create oidc client in keycloak
+  - name: argo-workflows-secret
+    chart: bedag/raw
+    namespace: argo-workflows
+    version: 2.0.0
+    values:
+      - 101.argo-workflows-values.yaml.gotmpl
+
+  - name: argo-workflows
+    namespace: argo-workflows
+    chart: bitnami/argo-workflows
+    version: 5.3.4
+    values:
+      - 101.argo-workflows-values.yaml.gotmpl
+
+  - name: argo-cd
+    namespace: argo-cd
+    chart: bitnami/argo-cd
+    version: 4.7.9
+    values:
+      - 101.argo-cd-values.yaml.gotmpl
+
+  # - name: backstage
+  #   namespace: backstage
+  #   chart: backstage/backstage
+  #   version: 1.1.2
+  #   condition: backstage.enabled
+  #   values:
+  #     - 101.backstage-values.yaml.gotmpl

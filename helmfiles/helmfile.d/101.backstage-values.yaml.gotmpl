@@ -45,23 +45,11 @@ backstage:
           # Note that https://www.mkdocs.org/user-guide/configuration/#edit_uri behavior
           # will be broken in these scenarios.
           legacyCopyReadmeMdToIndexMd: false
-
       builder: 'local'
-
       publisher:
         type: 'local'
         local:
           publishDirectory: '/tmp'
-
- 
-
-
- 
-
-
-
-  
-
 ingress:
   enabled: true
   host: backstage.{{ .Values.hostnameSuffix }}

@@ -1,0 +1,22 @@
+auth:
+  adminUser: admin
+  adminPassword: "keycloak.12345"
+# service:
+#   type: ClusterIP
+ingress:
+  enabled: true
+  hostname: keycloak.{{ .Values.hostnameSuffix }}
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  tls: true
+postgresql:
+  # enabled: true
+  auth:
+    postgresPassword: "x98slsdd0918"
+    password: "109eixuUxl1eFd8"
+# externalDatabase:
+#   host: postgresql.postgresql.svc
+#   port: 5432
+#   user: postgres
+#   password: "postgresql2023"
+#   database: keycloak

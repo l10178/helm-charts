@@ -7,29 +7,34 @@ bases:
 repositories:
   - name: jetstack
     url: https://charts.jetstack.io
-  - name: bedag
-    url: https://bedag.github.io/helm-charts
 
 # add `---` to render environments values before releases
 ---
-
 releases:
   - name: cert-manager
     namespace: cert-manager
-    createNamespace: true
     chart: jetstack/cert-manager
     version: 1.12.1
     values:
       - installCRDs: true
-
   # create a cert-manager ClusterIssuer
   - name: selfsigned-cert-manager
     namespace: cert-manager
-    createNamespace: true
     chart: bedag/raw
     version: 2.0.0
     needs:
-    - cert-manager
+      - cert-manager
     values:
-    - 100.cert-manager-values.yaml
-  
+      - 100.cert-manager-values.yaml
+  - name: keycloak
+    namespace: keycloak
+    chart: bitnami/keycloak
+    version: 15.1.3
+    values:
+      - 100.keycloak-values.yaml.gotmpl
+  - name: minio
+    namespace: minio
+    chart: bitnami/minio
+    version: 12.6.4
+    values:
+      - 100.minio-values.yaml.gotmpl
