@@ -28,7 +28,7 @@ releases:
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 4.7.9
+    version: 4.7.10
     values:
       - 101.argo-cd-values.yaml.gotmpl
 

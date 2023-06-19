@@ -23,7 +23,8 @@ releases:
     chart: bedag/raw
     version: 2.0.0
     needs:
-      - cert-manager
+      - cert-manager/cert-manager
+    missingFileHandler: Error
     values:
       - 100.cert-manager-values.yaml
   - name: keycloak
