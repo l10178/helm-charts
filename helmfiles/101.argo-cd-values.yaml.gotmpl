@@ -7,6 +7,7 @@ server:
   insecure: true
   ingress:
     enabled: true
+    certManager: true
     hostname: argo-cd.{{ .Values.hostnameSuffix }}
     tls: true
     annotations:
