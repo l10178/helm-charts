@@ -3,10 +3,10 @@ bases:
   - 001.environments.yaml
   - 002.repositories.yaml
   - 003.helm-defaults.yaml
-repositories:
-  - name: backstage
-    url: ghcr.io/backstage/charts
-    oci: true
+# repositories:
+#   - name: backstage
+#     url: ghcr.io/backstage/charts
+#     oci: true
 
 ---
 releases:

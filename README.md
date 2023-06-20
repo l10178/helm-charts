@@ -28,9 +28,11 @@ Ubuntu 增加信任证书。
 
 ```bash
  sudo apt-get install -y ca-certificates
- sudo cp ca.crt /usr/local/share/ca-certificates
+ sudo cp ca.crt /usr/local/share/ca-certificates/k3s-local-ca.crt
  sudo update-ca-certificates
 ```
+
+Ubuntu 增加信任证书后，Edge一直未生效还是提示证书无效，重新在Edge设置里`edge://settings/privacy/manageCertificates`导入了一次解决了。
 
 ### 安装 k8s
 
@@ -72,5 +74,17 @@ helm plugin install https://github.com/databus23/helm-diff
 helmfile --environment cool apply --file helmfiles/helmfile.d/xxx.yaml --concurrency 1
 
 ```
+
+## 本地使用
+
+增加hosts
+
+```bash
+
+  export CLUSTER_IP="10.104.22.116"
+  echo "$CLUSTER_IP  argo-workflows.k3s.nxest.local" | sudo tee -a /etc/hosts
+
+```
+
 
 [multipass]: https://multipass.run/

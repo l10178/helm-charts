@@ -6,8 +6,8 @@ resources:
         name: argo-workflows-sso
         namespace: argo-workflows
     data:
-        clientId: YXJnbw==
-        clientSecret: aGhDZXZUSGhVSWVYZ2dPQUM5TU5Yak03ZnQ1Z2d0M3Y=
+        clientId: "{{ .Values.argo.sso.clientId }}"
+        clientSecret: "{{ .Values.argo.sso.clientSecret }}"
 
   - apiVersion: v1
     kind: Secret
@@ -15,8 +15,8 @@ resources:
         name: argo-minio-cred
         namespace: argo-workflows
     data:
-        accesskey: YWRtaW4=
-        secretkey: bWluaW8uMTIzNDU=
+        accesskey: "{{ .Values.argo.minio.accesskey }}"
+        secretkey: "{{ .Values.argo.minio.secretkey }}"
 
   - apiVersion: v1
     kind: ConfigMap
