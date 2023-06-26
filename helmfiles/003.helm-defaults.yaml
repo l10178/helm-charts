@@ -5,13 +5,16 @@ helmDefaults:
   # tillerNamespace: tiller-namespace  #dedicated default key for tiller-namespace
   # tillerless: false                  #dedicated default key for tillerless
   # kubeContext: k3s #dedicated default key for kube-context (--kube-context)
-  cleanupOnFail: true #dedicated default key for helm flag --cleanup-on-fail
+  cleanupOnFail: false #dedicated default key for helm flag --cleanup-on-fail
   # additional and global args passed to helm (default "")
   args:
     []
     # - "--set k=v"
   # verify the chart before upgrading (only works with packaged charts not directories) (default false)
   verify: false
+
+
+
   # wait for k8s resources via --wait. (default false)
   wait: false
   # if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout (default false, Implemented in Helm3.5)

@@ -19,12 +19,13 @@ MASTER_IP=$2
 # subjectKeyIdentifier = hash
 # authorityKeyIdentifier = keyid:always,issuer:always
 
+    
 openssl req -x509 \
     -sha256 -days 3650 \
     -nodes \
     -newkey rsa:2048 \
     -subj "/CN=${DOMAIN}/C=US/L=San Fransisco" \
-    # -extensions v3_ca \
+    -extensions v3_ca \
     -keyout ca.key -out ca.crt
 
 # Generate Private key

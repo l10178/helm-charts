@@ -28,9 +28,11 @@ Ubuntu 增加信任证书。
 
 ```bash
  sudo apt-get install -y ca-certificates
- sudo cp ca.crt /usr/local/share/ca-certificates
+ sudo cp ca.crt /usr/local/share/ca-certificates/k3s-local-ca.crt
  sudo update-ca-certificates
 ```
+
+Ubuntu 增加信任证书后，Edge一直未生效还是提示证书无效，重新在Edge设置里`edge://settings/privacy/manageCertificates`导入了一次解决了。
 
 ### 安装 k8s
 
@@ -47,7 +49,10 @@ multipass info k3s
 multipass shell k3s
 
 # Install or upgrade k3s
-curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=644 INSTALL_K3S_CHANNEL=latest sh -
+curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=600 INSTALL_K3S_CHANNEL=stable sh -
+
+# or install lastest version
+# curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=600 INSTALL_K3S_CHANNEL=latest sh -
 
 # copy /etc/rancher/k3s/k3s.yaml as your kube config file
 
@@ -66,10 +71,20 @@ curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=644 INS
 helm plugin install https://github.com/databus23/helm-diff
 
 #  run helmfile, set `--concurrency 1` for github always EOF
-helmfile --environment cool apply --file helmfiles/xxx.yaml --concurrency 1
+helmfile --environment cool apply --file helmfiles/helmfile.d/xxx.yaml --concurrency 1
 
 ```
 
-## GitHub Actions
+## 本地使用
+
+增加hosts
+
+```bash
+
+  export CLUSTER_IP="10.104.22.116"
+  echo "$CLUSTER_IP  argo-workflows.k3s.nxest.local" | sudo tee -a /etc/hosts
+
+```
+
 
 [multipass]: https://multipass.run/

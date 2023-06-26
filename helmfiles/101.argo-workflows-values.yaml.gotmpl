@@ -1,0 +1,68 @@
+# use bedag/raw create secret for sso client
+resources:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+        name: argo-workflows-sso
+        namespace: argo-workflows
+    data:
+        clientId: "{{ .Values.argo.sso.clientId }}"
+        clientSecret: "{{ .Values.argo.sso.clientSecret }}"
+
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+        name: argo-minio-cred
+        namespace: argo-workflows
+    data:
+        accesskey: "{{ .Values.argo.minio.accesskey }}"
+        secretkey: "{{ .Values.argo.minio.secretkey }}"
+
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: artifact-repositories
+      namespace: argo-workflows
+      annotations:
+        workflows.argoproj.io/default-artifact-repository: default-v1-s3-artifact-repository
+    data:
+      default-v1-s3-artifact-repository: |
+        s3:
+          bucket: argo
+          endpoint: minio.minio.svc:9000
+          insecure: true
+          accessKeySecret:
+            name: argo-minio-cred
+            key: accesskey
+          secretKeySecret:
+            name: argo-minio-cred
+            key: secretkey
+
+# for argo-workflow
+global:
+  postgresql:
+    auth:
+      postgresPassword: "postgresql.2023"
+      password: "postgresql2023"
+
+server:
+  auth:
+    mode: sso
+    sso:
+      enabled: true
+      config:
+        insecureSkipVerify: true
+        issuer: https://keycloak.{{ .Values.hostnameSuffix }}/realms/master
+        clientId:
+          name: "argo-workflows-sso"
+          key: "clientId"
+        clientSecret:
+          name: "argo-workflows-sso"
+          key: "clientSecret"
+        redirectUrl: "https://argo-workflows.{{ .Values.hostnameSuffix }}/oauth2/callback"
+ingress:
+  enabled: true
+  hostname: argo-workflows.{{ .Values.hostnameSuffix }}
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager

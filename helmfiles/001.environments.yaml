@@ -1,0 +1,9 @@
+environments:
+  k3s:
+    kubeContext: k3s
+    values:
+      - 001.environment-k3s.yaml
+  cool:
+    kubeContext: cool
+    values:
+      - 001.environment-cool.yaml
