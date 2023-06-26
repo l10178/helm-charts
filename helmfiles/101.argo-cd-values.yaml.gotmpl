@@ -12,6 +12,12 @@ server:
     tls: true
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cert-manager
+  ingressGrpc:
+    enabled: true
+    hostname: argo-cd-grpc.{{ .Values.hostnameSuffix }}
+    tls: true
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cert-manager
 
   # oidc.config:
   #   name: keycloak
