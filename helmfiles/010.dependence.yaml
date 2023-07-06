@@ -10,12 +10,12 @@ releases:
   - name: keycloak
     namespace: keycloak
     chart: bitnami/keycloak
-    version: 15.1.3
+    version: 15.1.6
     values:
       - 100.keycloak-values.yaml.gotmpl
   - name: minio
     namespace: minio
     chart: bitnami/minio
-    version: 12.6.4
+    version: 12.6.5
     values:
       - 100.minio-values.yaml.gotmpl
