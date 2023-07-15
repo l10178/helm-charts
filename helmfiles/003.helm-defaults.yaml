@@ -12,9 +12,6 @@ helmDefaults:
     # - "--set k=v"
   # verify the chart before upgrading (only works with packaged charts not directories) (default false)
   verify: false
-
-
-
   # wait for k8s resources via --wait. (default false)
   wait: false
   # if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout (default false, Implemented in Helm3.5)
@@ -26,7 +23,7 @@ helmDefaults:
   # forces resource update through delete/recreate if needed (default false)
   force: false
   # enable TLS for request to Tiller (default false)
-  tls: false
+  # tls: false
   # path to TLS CA certificate file (default "$HELM_HOME/ca.pem")
   # tlsCACert: "path/to/ca.pem"
   # path to TLS certificate file (default "$HELM_HOME/cert.pem")

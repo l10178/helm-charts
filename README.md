@@ -41,7 +41,7 @@ Ubuntu 增加信任证书后，Edge一直未生效还是提示证书无效，重
 ```bash
 
 # 启动一个新虚拟机，名字叫 k3s，使用 ubuntu 22.04镜像
-multipass launch --name k3s --cpus 4 --memory 16G --disk 128G 22.04
+multipass launch --name k3s --cpus 8 --memory 16G --disk 256G 22.04
 
 # 查看虚拟机信息
 multipass info k3s
@@ -58,6 +58,14 @@ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIR
 
 ```
 
+
+增加 k3s 配置： `/etc/rancher/k3s/config.yaml`，内容如下，修改后重启k3s。
+
+```yaml
+kubelet-arg:
+  - "serialize-image-pulls=true"
+```
+
 注意：修改 kube config 中 context name，与 helmfile 中的使用的 `kubeContext` 保持一致。我这里都改为了`k3s`。
 
 ## helmfile
@@ -71,7 +79,7 @@ curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIR
 helm plugin install https://github.com/databus23/helm-diff
 
 #  run helmfile, set `--concurrency 1` for github always EOF
-helmfile --environment cool apply --file helmfiles/helmfile.d/xxx.yaml --concurrency 1
+helmfile --environment cool --concurrency 1 apply --file helmfiles/xxx.yaml 
 
 ```
 

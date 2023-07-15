@@ -14,10 +14,10 @@ releases:
   - name: cert-manager
     namespace: cert-manager
     chart: jetstack/cert-manager
-    version: 1.12.1
+    version: 1.12.2
     values:
       - installCRDs: true
-  # create a cert-manager ClusterIssuer
+  # create a cert-manager ClusterIssuer, should wait for cert-manager crd installed
   - name: selfsigned-cert-manager
     namespace: cert-manager
     chart: bedag/raw
