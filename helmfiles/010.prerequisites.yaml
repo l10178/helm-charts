@@ -1,0 +1,38 @@
+# include base configs
+bases:
+  - 001.environments.yaml
+  - 002.repositories.yaml
+  - 003.helm-defaults.yaml
+
+# add `---` to render environments values before releases
+---
+
+helmfiles:
+- # Path to the helmfile state file being processed BEFORE releases in this state file
+  path: 010.core.yaml
+
+releases:
+  # create a cert-manager ClusterIssuer, should wait for cert-manager crd installed
+  - name: selfsigned-cert-manager
+    namespace: cert-manager
+    chart: bedag/raw
+    version: 2.0.0
+    # needs:
+    #   - cert-manager/cert-manager
+    missingFileHandler: Error
+    values:
+      - 100.cert-manager-values.yaml.gotmpl
+  - name: keycloak
+    namespace: keycloak
+    chart: bitnami/keycloak
+    version: 17.0.4
+    values:
+      - 100.keycloak-values.yaml.gotmpl
+  - name: minio
+    namespace: minio
+    chart: bitnami/minio
+    version: 12.8.13
+    values:
+      - 100.minio-values.yaml.gotmpl
+
+  # nfs-server-provisioner

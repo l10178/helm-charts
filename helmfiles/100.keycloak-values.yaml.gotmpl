@@ -9,6 +9,11 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-cert-manager
   tls: true
+
+# run behind ingress proxy
+production: true
+proxy: edge
+
 postgresql:
   # enabled: true
   auth:
