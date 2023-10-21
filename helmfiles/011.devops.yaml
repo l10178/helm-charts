@@ -21,14 +21,14 @@ releases:
   - name: argo-workflows
     namespace: argo-workflows
     chart: bitnami/argo-workflows
-    version: 6.0.4
+    version: 6.0.5
     values:
       - 101.argo-workflows-values.yaml.gotmpl
 
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 5.1.13
+    version: 5.1.15
     values:
       - 101.argo-cd-values.yaml.gotmpl
 

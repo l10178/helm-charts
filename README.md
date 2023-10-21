@@ -75,14 +75,26 @@ helmfile --environment cool --concurrency 1 apply --file helmfiles/xxx.yaml
 
 ```
 
-## 本地使用
+## DNS 解析
 
-增加 hosts
+在 K8S 集群内某些服务必须通过 Ingress 访问，比如 OIDC 相关的，所以可以把 ingress 相关解析手动加到 coredns 里。
+
+```console
+kubectl -n kube-system edit cm coredns
+# 增加 NodeHosts 解析
+data:
+  NodeHosts: |
+    172.x.x.x keycloak.cool.nxest.local
+    172.x.x.x minio.cool.nxest.local
+
+```
+
+研发本地增加 hosts。
 
 ```bash
 
   export CLUSTER_IP="10.104.22.116"
-  echo "$CLUSTER_IP  argo-workflows.k3s.nxest.local" | sudo tee -a /etc/hosts
+  echo "$CLUSTER_IP keycloak.cool.nxest.local" | sudo tee -a /etc/hosts
 
 ```
 

@@ -1,13 +1,13 @@
 config:
   secret:
     argocdServerAdminPassword: argo-cd.12345
-    
+
 server:
   url: https://argo-cd.{{ .Values.hostnameSuffix }}
   insecure: true
   ingress:
     enabled: true
-    certManager: true
+    # certManager: true
     hostname: argo-cd.{{ .Values.hostnameSuffix }}
     tls: true
     annotations:

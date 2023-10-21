@@ -60,9 +60,16 @@ server:
           name: "argo-workflows-sso"
           key: "clientSecret"
         redirectUrl: "https://argo-workflows.{{ .Values.hostnameSuffix }}/oauth2/callback"
+
 ingress:
   enabled: true
   hostname: argo-workflows.{{ .Values.hostnameSuffix }}
   tls: true
   annotations:
     cert-manager.io/cluster-issuer: selfsigned-cert-manager
+
+controller:
+  service:
+    # fix ingress annotations not work
+    annotations:
+      cert-manager.io/cluster-issuer: selfsigned-cert-manager
