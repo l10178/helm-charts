@@ -28,9 +28,28 @@ releases:
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 5.1.15
+    version: 5.1.17
     values:
       - 101.argo-cd-values.yaml.gotmpl
+    # fix ingress error, force use port 'http'
+    strategicMergePatches:
+      - apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: argo-cd-server
+          namespace: argo-cd
+        spec:
+          rules:
+          - host: argo-cd.cool.nxest.local
+            http:
+              paths:
+              - backend:
+                  service:
+                    name: argo-cd-server
+                    port:
+                      name: http
+                path: /
+                pathType: ImplementationSpecific
 
   # - name: backstage
   #   namespace: backstage
