@@ -21,14 +21,14 @@ releases:
   - name: argo-workflows
     namespace: argo-workflows
     chart: bitnami/argo-workflows
-    version: 6.0.5
+    version: 6.1.1
     values:
       - 101.argo-workflows-values.yaml.gotmpl
 
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 5.1.17
+    version: 5.2.0
     values:
       - 101.argo-cd-values.yaml.gotmpl
     # fix ingress error, force use port 'http'

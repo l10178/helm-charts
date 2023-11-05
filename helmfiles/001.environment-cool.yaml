@@ -13,7 +13,7 @@ issuer:
 argo:
   sso:
     clientId: YXJnbw==
-    clientSecret: SVVBYTVoc3BWZFJnd3kwTXNXTHlYS0kzVnlaRFh2Tmc=
+    clientSecret: SkwySFQ2dXQ1Tno3OUNQRDdDRWlWMW1GeVlQOUV1MGY=
   minio:
     accesskey: YWRtaW4=
     secretkey: bWluaW8uMTIzNDU=
