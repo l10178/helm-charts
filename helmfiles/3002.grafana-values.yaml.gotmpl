@@ -1,0 +1,10 @@
+admin:
+  user: "admin"
+  password: "grafana.12345"
+
+ingress:
+  enabled: true
+  hostname: grafana.{{ .Values.hostnameSuffix }}
+  tls: true
+  annotations:
+    cert-manager.io/cluster-issuer: selfsigned-cert-manager

@@ -1,0 +1,22 @@
+# include base configs
+bases:
+  - 001.environments.yaml
+  - 002.repositories.yaml
+  - 003.helm-defaults.yaml
+
+---
+releases:
+
+  - name: kube-prometheus
+    namespace: monitoring
+    chart: bitnami/kube-prometheus
+    version: 8.22.5
+    values:
+      - 3001.kube-prometheus-values.yaml.gotmpl
+
+  - name: grafana
+    namespace: monitoring
+    chart: bitnami/grafana
+    version: 9.6.2
+    values:
+      - 3002.grafana-values.yaml.gotmpl
