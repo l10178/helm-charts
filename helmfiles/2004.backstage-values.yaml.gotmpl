@@ -1,4 +1,13 @@
 backstage:
+
+# backstage.image.registry	Backstage image registry	string	"ghcr.io"
+# backstage.image.repository	Backstage image repository	string	"backstage/backstage"
+# backstage.image.tag
+  image:
+    registry: docker.io
+    repository: nxest/backstage
+    tag: latest
+
   appConfig:
     app:
       baseUrl: https://backstage.{{ .Values.hostnameSuffix }}

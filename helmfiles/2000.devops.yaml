@@ -3,10 +3,11 @@ bases:
   - 001.environments.yaml
   - 002.repositories.yaml
   - 003.helm-defaults.yaml
-# repositories:
-#   - name: backstage
-#     url: ghcr.io/backstage/charts
-#     oci: true
+repositories:
+  - name: backstage
+    url: https://backstage.github.io/charts
+    # url: ghcr.io/backstage/charts
+    oci: false
 
 ---
 releases:
@@ -16,21 +17,21 @@ releases:
     namespace: argo-workflows
     version: 2.0.0
     values:
-      - 101.argo-workflows-values.yaml.gotmpl
+      - 2002.argo-workflows-values.yaml.gotmpl
 
   - name: argo-workflows
     namespace: argo-workflows
     chart: bitnami/argo-workflows
     version: 6.1.1
     values:
-      - 101.argo-workflows-values.yaml.gotmpl
+      - 2002.argo-workflows-values.yaml.gotmpl
 
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
     version: 5.2.0
     values:
-      - 101.argo-cd-values.yaml.gotmpl
+      - 2003.argo-cd-values.yaml.gotmpl
     # fix ingress error, force use port 'http'
     strategicMergePatches:
       - apiVersion: networking.k8s.io/v1
@@ -51,10 +52,9 @@ releases:
                 path: /
                 pathType: ImplementationSpecific
 
-  # - name: backstage
-  #   namespace: backstage
-  #   chart: backstage/backstage
-  #   version: 1.1.2
-  #   condition: backstage.enabled
-  #   values:
-  #     - 101.backstage-values.yaml.gotmpl
+  - name: backstage
+    namespace: backstage
+    chart: backstage/backstage
+    version: 1.8.0
+    values:
+      - 2004.backstage-values.yaml.gotmpl
