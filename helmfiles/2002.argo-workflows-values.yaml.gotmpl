@@ -73,3 +73,7 @@ controller:
     # fix ingress annotations not work
     annotations:
       cert-manager.io/cluster-issuer: selfsigned-cert-manager
+
+executor:
+  containerSecurityContext:
+    readOnlyRootFilesystem: false
