@@ -14,22 +14,22 @@ releases:
   # create oidc client in keycloak
   - name: argo-workflows-secret
     chart: bedag/raw
-    namespace: argo-workflows
+    namespace: argo
     version: 2.0.0
     values:
       - 2002.argo-workflows-values.yaml.gotmpl
 
   - name: argo-workflows
-    namespace: argo-workflows
+    namespace: argo
     chart: bitnami/argo-workflows
-    version: 6.1.1
+    version: 6.1.4
     values:
       - 2002.argo-workflows-values.yaml.gotmpl
 
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 5.2.0
+    version: 5.2.8
     values:
       - 2003.argo-cd-values.yaml.gotmpl
     # fix ingress error, force use port 'http'

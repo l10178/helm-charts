@@ -4,7 +4,7 @@ resources:
     kind: Secret
     metadata:
         name: argo-workflows-sso
-        namespace: argo-workflows
+        namespace: argo
     data:
         clientId: "{{ .Values.argo.sso.clientId }}"
         clientSecret: "{{ .Values.argo.sso.clientSecret }}"
@@ -13,7 +13,7 @@ resources:
     kind: Secret
     metadata:
         name: argo-minio-cred
-        namespace: argo-workflows
+        namespace: argo
     data:
         accesskey: "{{ .Values.argo.minio.accesskey }}"
         secretkey: "{{ .Values.argo.minio.secretkey }}"
@@ -22,7 +22,7 @@ resources:
     kind: ConfigMap
     metadata:
       name: artifact-repositories
-      namespace: argo-workflows
+      namespace: argo
       annotations:
         workflows.argoproj.io/default-artifact-repository: default-v1-s3-artifact-repository
     data:
