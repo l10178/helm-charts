@@ -48,11 +48,17 @@ multipass info k3s
 # 进入虚拟机
 multipass shell k3s
 
-# Install or upgrade k3s
+# Install or upgrade k3s as master
 curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=600 INSTALL_K3S_CHANNEL=latest sh -
 
 # or install lastest version
 # curl -sfL https://get.k3s.io | INSTALL_K3S_MIRROR=cn K3S_KUBECONFIG_MODE=600 INSTALL_K3S_CHANNEL=latest sh -
+
+#  install as k3s agent
+# cat /var/lib/rancher/k3s/server/node-token
+# curl -sfL https://rancher-mirror.rancher.cn/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+
+# curl -sfL https://get.k3s.io | K3S_URL=https://172.29.1.43:6443 K3S_TOKEN=K10addd342daa729d34bfc39a09b87d556bf28f6790b3b88ab6da26e180f4db9ffb::server:74e1581a5a6438baacea88a08e385215 sh -
 
 # copy /etc/rancher/k3s/k3s.yaml as your kube config file
 
