@@ -22,14 +22,14 @@ releases:
   - name: argo-workflows
     namespace: argo
     chart: bitnami/argo-workflows
-    version: 6.1.4
+    version: 6.3.0
     values:
       - 2002.argo-workflows-values.yaml.gotmpl
 
   - name: argo-cd
     namespace: argo-cd
     chart: bitnami/argo-cd
-    version: 5.2.8
+    version: 5.4.5
     values:
       - 2003.argo-cd-values.yaml.gotmpl
     # fix ingress error, force use port 'http'
@@ -55,6 +55,6 @@ releases:
   - name: backstage
     namespace: backstage
     chart: backstage/backstage
-    version: 1.8.0
+    version: 1.8.2
     values:
       - 2004.backstage-values.yaml.gotmpl
